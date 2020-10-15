@@ -7,10 +7,11 @@ import java.io.Serializable;
 @Embeddable
 public class VoteId implements Serializable {
 
+    @ManyToOne
     private User user;
+    @ManyToOne
     private Feature feature;
 
-    @ManyToOne
     public User getUser() {
         return user;
     }
@@ -19,7 +20,6 @@ public class VoteId implements Serializable {
         this.user = user;
     }
 
-    @ManyToOne
     public Feature getFeature() {
         return feature;
     }

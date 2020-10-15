@@ -9,13 +9,13 @@ public class Comment {
 
     @EmbeddedId
     private CommentId pk;
+    @Column(length = 5000)
     private String text;
 
     public String getText() {
         return text;
     }
 
-    @Column(length = 5000)
     public void setText(String text) {
         this.text = text;
     }
