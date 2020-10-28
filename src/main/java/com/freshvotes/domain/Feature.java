@@ -1,9 +1,6 @@
 package com.freshvotes.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Feature {
@@ -13,6 +10,8 @@ public class Feature {
     private String title;
     private String description;
     private String status;
+    @ManyToOne
+    private Product product;
 
     public Long getId() {
         return id;
@@ -44,5 +43,13 @@ public class Feature {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
