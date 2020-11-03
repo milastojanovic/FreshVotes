@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,8 +24,12 @@ public class ProductController {
     private ProductRepository productRepo;
 
     @GetMapping("/products")
-    public String getProducts(ModelMap model) {
-        return "product";
+    public String getProducts(@AuthenticationPrincipal User user, ModelMap model) {
+        List<Product> products = productRepo.findByUser(user);
+
+        model.put("products", products);
+
+        return "products";
     }
 
     @GetMapping("/products/{productId}")
@@ -52,5 +57,14 @@ public class ProductController {
         product = productRepo.save(product);
 
         return "redirect:/products/" + product.getId();
+    }
+
+    @PostMapping("/products/{productId}")
+    public String saveProduct(@PathVariable Long productId, Product product, @AuthenticationPrincipal User user) {
+        product.setUser(user);
+
+        product = productRepo.save(product);
+
+        return "redirect:/products/" +  product.getId();
     }
 }
